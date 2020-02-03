@@ -12,7 +12,7 @@ var LoginController = require('../controllers/login-controller');
     Listado de rutas y servicios
  ============================ */
 // Login de usuario
-loginRoutes.post('/', LoginController.login);
+loginRoutes.post('/login', LoginController.login);
 
 // Exportamos el módulo de rutas de Login
 module.exports = loginRoutes;

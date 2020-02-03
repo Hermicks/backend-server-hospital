@@ -15,13 +15,13 @@ var mdAuth = require('../middlewares/auth');
 Listado de rutas y servicios
 ============================ */
 // Obtención de todos los hospitales
-hospitalRoutes.get('/', HospitalController.getHospitals);
+hospitalRoutes.get('/hospital', HospitalController.getHospitals);
 // Creación de un hospital
-hospitalRoutes.post('/', mdAuth.tokenVerification, HospitalController.postHospital);
+hospitalRoutes.post('/hospital', mdAuth.tokenVerification, HospitalController.postHospital);
 // Actualizar un hospital
-hospitalRoutes.put('/:id', mdAuth.tokenVerification, HospitalController.putHospital);
+hospitalRoutes.put('/hospital/:id', mdAuth.tokenVerification, HospitalController.putHospital);
 // Eliminar un hospital
-hospitalRoutes.delete('/:id', mdAuth.tokenVerification, HospitalController.deleteHospital);
+hospitalRoutes.delete('/hospital/:id', mdAuth.tokenVerification, HospitalController.deleteHospital);
 
 
 // Exportamos el módulo de rutas de Hospital

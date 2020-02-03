@@ -27,16 +27,7 @@ mongoose.connect('mongodb://localhost:27017/hospitalDB', options)
 /**
  * Rutas principales de la aplicación
  */
-// Ruta de carga principal
-app.use('/', appRoutes);
-// Ruta del controlador de login
-app.use('/login', loginRoutes);
-// Ruta del controlador de usuarios
-app.use('/usuario', userRoutes);
-// Ruta del controlador de hospital
-app.use('/hospital', hospitalRoutes);
-// Ruta del controlador de médico
-app.use('/medico', medicoRoutes);
+app.use('/api', [appRoutes, loginRoutes, userRoutes, hospitalRoutes, medicoRoutes]);
 
 // Escuchamos peticiones
 app.listen(3000, () => {

@@ -15,13 +15,13 @@ var mdAuth = require('../middlewares/auth');
     Listado de rutas y servicios
     ============================ */
 // Obtención de todos los usuarios
-userRoutes.get('/', UserController.getUsers);
+userRoutes.get('/usuario', UserController.getUsers);
 // Creación de un nuevo usuario
-userRoutes.post('/', mdAuth.tokenVerification, UserController.postUser);
+userRoutes.post('/usuario', mdAuth.tokenVerification, UserController.postUser);
 // Actuzalizar un usuario
-userRoutes.put('/:id', mdAuth.tokenVerification, UserController.putUser);
+userRoutes.put('/usuario/:id', mdAuth.tokenVerification, UserController.putUser);
 // Borrar un usuario
-userRoutes.delete('/:id', mdAuth.tokenVerification, UserController.deleteUser);
+userRoutes.delete('/usuario/:id', mdAuth.tokenVerification, UserController.deleteUser);
 
 // Exportamos el módulo de rutas de User
 module.exports = userRoutes;

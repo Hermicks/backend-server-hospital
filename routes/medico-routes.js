@@ -15,13 +15,13 @@ var mdAuth = require('../middlewares/auth');
 Listado de rutas y servicios
 ============================ */
 // Obtención de todos los médicos
-medicoRoutes.get('/', MedicoController.getDoctors);
+medicoRoutes.get('/medico', MedicoController.getDoctors);
 // Creación de un médico
-medicoRoutes.post('/:id', mdAuth.tokenVerification, MedicoController.postDoctor);
+medicoRoutes.post('/medico/:id', mdAuth.tokenVerification, MedicoController.postDoctor);
 // Actualización de un médico
-medicoRoutes.put('/:id', mdAuth.tokenVerification, MedicoController.putDoctor);
+medicoRoutes.put('/medico/:id', mdAuth.tokenVerification, MedicoController.putDoctor);
 // Eliminación de un médico
-medicoRoutes.delete('/:id', mdAuth.tokenVerification, MedicoController.deleteDoctor);
+medicoRoutes.delete('/medico/:id', mdAuth.tokenVerification, MedicoController.deleteDoctor);
 
 // Exportamos el módulo con las rutas de Médico
 module.exports = medicoRoutes;
