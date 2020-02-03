@@ -58,7 +58,9 @@ var hospitalController = {
                 });
             }
             if (hospital) {
-                Hospital.findByIdAndUpdate(id, body, (err, hospitalUpdated) => {
+                hospital.nombre = body.nombre;
+                hospital.usuario = req.user._id;
+                hospital.save((err, hospitalUpdated) => {
                     if (err) {
                         return res.status(500).send({
                             ok: false,

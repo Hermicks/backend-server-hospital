@@ -24,13 +24,12 @@ var medicoController = {
     // Generamos un nuevo médico
     postDoctor: function (req, res) {
         var body = req.body;
-        var idHospital = req.params.id;
         var userToken = req.user;
         var newDoctor = new Medico({
             nombre: body.nombre,
             img: body.img,
             usuario: userToken._id,
-            hospital: idHospital
+            hospital: body.hospital
         });
         newDoctor.save((err, storedDoctor) => {
             if (err) {
@@ -61,7 +60,10 @@ var medicoController = {
                 });
             }
             if (doctor) {
-                Medico.findByIdAndUpdate(id, body, (err, updatedDoctor) => {
+                doctor.nombre = body.nombre;
+                doctor.usuario = req.user._id;
+                doctor.hospital = body.hospital;
+                doctor.save((err, updatedDoctor) => {
                     if (err) {
                         return res.status(500).send({
                             ok: false,
