@@ -14,7 +14,7 @@ var loginController = {
         var body = req.body;
         User.findOne({ email: body.email }, (err, userDB) => {
             if (err) {
-                return res.status(500).json({
+                return res.status(500).send({
                     ok: false,
                     message: 'Error al buscar usuarios',
                     errors: err
@@ -25,7 +25,7 @@ var loginController = {
                     // Generación de un token válido
                     userDB.password = ':)';
                     var token = jwt.sign({ user: userDB }, SEED, { expiresIn: 14400 }); // 4 horas en milliseconds
-                    return res.status(200).json({
+                    return res.status(200).send({
                         ok: true,
                         message: 'Login realizado correctamente',
                         id: userDB._id,
@@ -33,14 +33,14 @@ var loginController = {
                         userDB: userDB
                     });
                 } else {
-                    return res.status(400).json({
+                    return res.status(400).send({
                         ok: false,
                         message: 'Credenciales incorrectas - password',
                         errors: err
                     });
                 }
             } else {
-                return res.status(400).json({
+                return res.status(400).send({
                     ok: false,
                     message: 'Credenciales incorrectas - email',
                     errors: err

@@ -6,7 +6,7 @@ var express = require('express');
 var appRoutes = express();
 
 appRoutes.get('/', (req, res) => {
-    res.status(200).json({
+    res.status(200).send({
         ok: true,
         message: 'Petición realizada correctamente'
     });

@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 // importamos librerías
 var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
 
 // Importamos modelo de Usuario
 var User = require('../models/usuario-model');
@@ -12,13 +11,13 @@ var userController = {
         User.find({}, 'nombre email img role')
             .exec((err, users) => {
                 if (err) {
-                    return res.status(500).json({
+                    return res.status(500).send({
                         ok: false,
                         message: 'Error en BBDD',
                         errors: err
                     });
                 }
-                res.status(200).json({
+                res.status(200).send({
                     ok: true,
                     message: 'Petición de usuarios',
                     users: users
@@ -26,7 +25,7 @@ var userController = {
             });
     },
     // Crear un nuevo usuario
-    storeUser: function (req, res) {
+    postUser: function (req, res) {
         var body = req.body;
         var user = new User({
             nombre: body.nombre,
@@ -37,13 +36,13 @@ var userController = {
         });
         user.save((err, userStored) => {
             if (err) {
-                return res.status(400).json({
+                return res.status(400).send({
                     ok: false,
                     message: 'Error al crear usuario',
                     errors: err
                 });
             }
-            res.status(201).json({
+            res.status(201).send({
                 ok: true,
                 message: 'User created',
                 userStored: userStored,
@@ -52,12 +51,12 @@ var userController = {
         });
     },
     // Actualizar un usuario
-    updateUser: function (req, res) {
+    putUser: function (req, res) {
         var id = req.params.id;
         var body = req.body;
         User.findById(id, (err, user) => {
             if (err) {
-                return res.status(500).json({
+                return res.status(500).send({
                     ok: false,
                     message: 'Error al buscar usuario',
                     errors: err
@@ -69,14 +68,14 @@ var userController = {
                 user.role = body.role;
                 user.save((err, userUpdated) => {
                     if (err) {
-                        return res.status(400).json({
+                        return res.status(400).send({
                             ok: false,
                             message: 'Error al actualizar usuario',
                             errors: err
                         });
                     }
                     user.password = ':)';
-                    res.status(200).json({
+                    res.status(200).send({
                         ok: true,
                         message: 'User updated',
                         userUpdated: userUpdated,
@@ -84,7 +83,7 @@ var userController = {
                     });
                 });
             } else {
-                return res.status(400).json({
+                return res.status(400).send({
                     ok: false,
                     message: 'Error al buscar usuario ' + id,
                     errors: err
@@ -97,20 +96,20 @@ var userController = {
         var id = req.params.id;
         User.findByIdAndRemove(id, (err, userDeleted) => {
             if (err) {
-                return res.status(500).json({
+                return res.status(500).send({
                     ok: false,
                     message: 'Error al borrar usuario',
                     errors: err
                 });
             }
             if (userDeleted) {
-                return res.status(200).json({
+                return res.status(200).send({
                     ok: true,
                     userDeleted: userDeleted,
                     userToken: req.user
                 });
             } else {
-                return res.status(400).json({
+                return res.status(400).send({
                     ok: false,
                     message: 'Error al borrar el usuario ' + id
                 });
