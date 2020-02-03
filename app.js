@@ -17,6 +17,7 @@ var appRoutes = require('./routes/app-routes');
 var userRoutes = require('./routes/usuario-routes');
 var loginRoutes = require('./routes/login-routes');
 var hospitalRoutes = require('./routes/hospital-routes');
+var medicoRoutes = require('./routes/medico-routes');
 
 // Conexión a BBDD
 var options = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
@@ -28,12 +29,14 @@ mongoose.connect('mongodb://localhost:27017/hospitalDB', options)
  */
 // Ruta de carga principal
 app.use('/', appRoutes);
-// Ruta de controlador de login
+// Ruta del controlador de login
 app.use('/login', loginRoutes);
-// Ruta de controlador de usuarios
+// Ruta del controlador de usuarios
 app.use('/usuario', userRoutes);
-// Ruta de controlador de hospital
+// Ruta del controlador de hospital
 app.use('/hospital', hospitalRoutes);
+// Ruta del controlador de médico
+app.use('/medico', medicoRoutes);
 
 // Escuchamos peticiones
 app.listen(3000, () => {

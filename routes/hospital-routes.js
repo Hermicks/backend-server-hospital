@@ -6,7 +6,7 @@ var express = require('express');
 var hospitalRoutes = express.Router();
 
 // Importamos el controlador de hospital
-var hospitalController = require('../controllers/hospital-controller');
+var HospitalController = require('../controllers/hospital-controller');
 
 // Verificación de token
 var mdAuth = require('../middlewares/auth');
@@ -15,13 +15,13 @@ var mdAuth = require('../middlewares/auth');
 Listado de rutas y servicios
 ============================ */
 // Obtención de todos los hospitales
-hospitalRoutes.get('/', hospitalController.getHospitals);
+hospitalRoutes.get('/', HospitalController.getHospitals);
 // Creación de un hospital
-hospitalRoutes.post('/', mdAuth.tokenVerification, hospitalController.postHospital);
+hospitalRoutes.post('/', mdAuth.tokenVerification, HospitalController.postHospital);
 // Actualizar un hospital
-hospitalRoutes.put('/:id', mdAuth.tokenVerification, hospitalController.putHospital);
+hospitalRoutes.put('/:id', mdAuth.tokenVerification, HospitalController.putHospital);
 // Eliminar un hospital
-hospitalRoutes.delete('/:id', mdAuth.tokenVerification, hospitalController.deleteHospital);
+hospitalRoutes.delete('/:id', mdAuth.tokenVerification, HospitalController.deleteHospital);
 
 
 // Exportamos el módulo de rutas de Hospital

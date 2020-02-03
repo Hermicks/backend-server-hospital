@@ -27,14 +27,14 @@ var userController = {
     // Crear un nuevo usuario
     postUser: function (req, res) {
         var body = req.body;
-        var user = new User({
+        var newUser = new User({
             nombre: body.nombre,
             email: body.email,
             password: bcrypt.hashSync(body.password, 10),
             img: body.img,
             role: body.role
         });
-        user.save((err, userStored) => {
+        newUser.save((err, userStored) => {
             if (err) {
                 return res.status(400).send({
                     ok: false,
