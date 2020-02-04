@@ -16,7 +16,8 @@ var usuarioSchema = new Schema({
     email: { type: String, unique: true, required: [true, 'Email is required'] },
     password: { type: String, required: [true, 'Password is required'] },
     img: { type: String, required: [false, 'Img is not required'] },
-    role: { type: String, required: [true, 'Role is required'], default: 'USER_ROLE', enum: allowedRoles }
+    role: { type: String, required: [true, 'Role is required'], default: 'USER_ROLE', enum: allowedRoles },
+    google: { type: Boolean, default: false }
 });
 
 // Implementamos el validator único

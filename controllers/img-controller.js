@@ -9,7 +9,7 @@ var imgController = {
         var img = req.params.img;
         // __dirname -> string que contiene la ruta actual donde nos encontramos
         var pathImg =  path.resolve(__dirname, `../uploads/${ type }/${ img }`);
-        // Comprobamos si existe para madnar la imagen
+        // Comprobamos si existe para mandar la imagen
         if (fs.existsSync(pathImg)) {
             res.sendFile(pathImg);
         } else {

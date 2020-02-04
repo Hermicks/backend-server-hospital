@@ -13,6 +13,8 @@ var LoginController = require('../controllers/login-controller');
  ============================ */
 // Login de usuario
 loginRoutes.post('/login', LoginController.login);
+// Login de usuario por Google
+loginRoutes.post('/login/google', LoginController.loginGoogle);
 
 // Exportamos el módulo de rutas de Login
 module.exports = loginRoutes;
