@@ -5,7 +5,13 @@ var Medico = require('../models/medico-model');
 var medicoController = {
     // Obtenemos todos los médicos
     getDoctors: function (req, res) {
+        var from = req.query.from;
+        from = Number(from);
         Medico.find({})
+            .skip(from)
+            .limit(5)
+            .populate('usuario', 'nombre email')
+            .populate({ path: 'hospital' })
             .exec((err, doctors) => {
                 if (err) {
                     return res.status(500).send({
@@ -14,11 +20,25 @@ var medicoController = {
                         errors: err
                     });
                 }
-                return res.status(200).send({
-                    ok: true,
-                    message: 'Listado de médicos',
-                    doctors: doctors
+                Medico.countDocuments({}, (err, total) => {
+                    if (err) {
+                        return res.status(500).send({
+                            ok: false,
+                            message: 'Error en conteo',
+                            errors: err
+                        });
+                    }
+                    return res.status(200).send({
+                        ok: true,
+                        message: 'Listado de médicos',
+                        doctors: doctors,
+                        total: total
+                    });
                 });
+
+
+
+                
             });
     },
     // Generamos un nuevo médico

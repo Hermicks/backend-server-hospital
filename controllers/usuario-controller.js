@@ -8,7 +8,11 @@ var User = require('../models/usuario-model');
 var userController = {
     // Obtener todos los usuarios
     getUsers: function (req, res) {
+        var from = req.query.from;
+        from = Number(from);
         User.find({}, 'nombre email img role')
+            .skip(from)
+            .limit(5)
             .exec((err, users) => {
                 if (err) {
                     return res.status(500).send({
@@ -17,10 +21,20 @@ var userController = {
                         errors: err
                     });
                 }
-                res.status(200).send({
-                    ok: true,
-                    message: 'Petición de usuarios',
-                    users: users
+                User.countDocuments({}, (err, total) => {
+                    if (err) {
+                        return res.status(500).send({
+                            ok: false,
+                            message: 'Error en conteo',
+                            errors: err
+                        });
+                    }
+                    return res.status(200).send({
+                        ok: true,
+                        message: 'Petición de usuarios',
+                        users: users,
+                        total: total
+                    });
                 });
             });
     },

@@ -18,16 +18,33 @@ var userRoutes = require('./routes/usuario-routes');
 var loginRoutes = require('./routes/login-routes');
 var hospitalRoutes = require('./routes/hospital-routes');
 var medicoRoutes = require('./routes/medico-routes');
+var busquedaRoutes = require('./routes/busqueda-routes');
+var uploadRoutes = require('./routes/upload-routes');
+var imgRoutes = require('./routes/img-routes');
 
 // Conexión a BBDD
 var options = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
 mongoose.connect('mongodb://localhost:27017/hospitalDB', options)
-    .then(() => { console.log('BBDD online!'); });
+        .then(() => { console.log('BBDD online!'); });
+
+// Serve Index config
+var serveIndex = require('serve-index');
+app.use(express.static(__dirname + '/'));
+app.use('/uploads', serveIndex(__dirname + '/uploads'));
 
 /**
  * Rutas principales de la aplicación
  */
-app.use('/api', [appRoutes, loginRoutes, userRoutes, hospitalRoutes, medicoRoutes]);
+app.use('/api', [
+    appRoutes,
+    loginRoutes,
+    userRoutes,
+    hospitalRoutes,
+    medicoRoutes,
+    busquedaRoutes,
+    uploadRoutes,
+    imgRoutes
+]);
 
 // Escuchamos peticiones
 app.listen(3000, () => {
