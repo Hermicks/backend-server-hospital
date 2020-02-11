@@ -45,6 +45,8 @@ mongoose.connect("mongodb://localhost:27017/hospitalDB", options).then(() => {
 });
 
 // Serve Index config
+// Lo usamos para crear un servidor llamado uploads donde podamos ver nuestras imagenes
+// En localhost:3000/uploads
 var serveIndex = require("serve-index");
 app.use(express.static(__dirname + "/"));
 app.use("/uploads", serveIndex(__dirname + "/uploads"));
