@@ -10,7 +10,7 @@ var userController = {
     getUsers: function (req, res) {
         var from = req.query.from;
         from = Number(from);
-        User.find({}, 'nombre email img role')
+        User.find({}, 'nombre email img role google')
             .skip(from)
             .limit(5)
             .exec((err, users) => {

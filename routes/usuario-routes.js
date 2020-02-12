@@ -17,7 +17,7 @@ var mdAuth = require('../middlewares/auth');
 // Obtención de todos los usuarios
 userRoutes.get('/usuario', UserController.getUsers);
 // Creación de un nuevo usuario
-userRoutes.post('/usuario', mdAuth.tokenVerification, UserController.postUser);
+userRoutes.post('/usuario', UserController.postUser);
 // Actuzalizar un usuario
 userRoutes.put('/usuario/:id', mdAuth.tokenVerification, UserController.putUser);
 // Borrar un usuario

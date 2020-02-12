@@ -7,10 +7,22 @@ var bodyParser = require('body-parser');
 // Inicializamos las variables
 var app = express();
 
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    // Desde cualquier lugar puedo hacer peticiones
+    res.header('Access-Control-Allow-Origin', '*');
+    // Tipos de origenes en la request
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    // Métodos que vamos a permitir realizar
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 // Body Parser
 // Parse application/x-www-form-urlencoded && Parse application/json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 // Importamos rutas
 var appRoutes = require('./routes/app-routes');
@@ -25,7 +37,7 @@ var imgRoutes = require('./routes/img-routes');
 // Conexión a BBDD
 var options = { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true };
 mongoose.connect('mongodb://localhost:27017/hospitalDB', options)
-        .then(() => { console.log('BBDD online!'); });
+    .then(() => { console.log('BBDD online!'); });
 
 // Serve Index config
 var serveIndex = require('serve-index');

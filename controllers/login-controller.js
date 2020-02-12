@@ -106,7 +106,8 @@ var loginController = {
                     return res.status(200).send({
                         ok: true,
                         message: 'Login por Google de usuario ya existente',
-                        googleUser: googleUser,
+						id: userDB._id,
+                        googleUser: userDB,
                         token: token
                     });
                 }
