@@ -9,7 +9,7 @@ var hospitalController = {
         from = Number(from);
         Hospital.find({})
             .skip(from)
-            .limit(5)
+            .limit(10)
             .populate('usuario', 'nombre email')
             .exec((err, hospitals) => {
                 if (err) {
@@ -30,11 +30,38 @@ var hospitalController = {
                     return res.status(200).send({
                         ok: true,
                         message: 'Listado de hospitales',
-                        hospital: hospitals,
+                        hospitals: hospitals,
                         total: total
                     });
                 });
             });
+    },
+    // Obtener un único hospital
+    getHospitalById: function (req, res) {
+        var id = req.params.id;
+        Hospital.findById(id)
+        .populate('usuario', 'nombre img email')
+        .exec((err, hospital) => {
+            if (err) {
+                return res.status(500).send({
+                    ok: false,
+                    message: 'Error buscando hospital por ID',
+                    errors: err
+                });
+            }
+            if (!hospital) {
+                return res.status(400).send({
+                    ok: false,
+                    message: 'El ID ' + id + '  no existe actualmente'
+                });
+            } else {
+                return res.status(200).send({
+                    ok: false,
+                    message: 'Búsqueda de hospital por ID',
+                    hospital: hospital
+                });
+            }
+        });
     },
     // Crear un nuevo hospital
     postHospital: function (req, res) {

@@ -41,6 +41,34 @@ var medicoController = {
                 
             });
     },
+    // Obtener un médico por ID
+    getDoctorById: function (req, res) {
+        var id = req.params.id;
+        Medico.findById(id)
+        .populate({ path: 'usuario', select: 'nombre email img role'})
+        .populate({ path: 'hospital' })
+        .exec((err, doctor) => {
+            if (err) {
+                return res.status(500).send({
+                    ok: false,
+                    message: 'Error buscando doctor por ID',
+                    errors: err
+                });
+            }
+            if (!doctor) {
+                return res.status(400).send({
+                    ok: false,
+                    message: 'El ID ' + id + '  no existe actualmente'
+                });
+            } else {
+                return res.status(200).send({
+                    ok: false,
+                    message: 'Búsqueda de doctor por ID',
+                    doctor: doctor
+                });
+            }
+        });
+    },
     // Generamos un nuevo médico
     postDoctor: function (req, res) {
         var body = req.body;

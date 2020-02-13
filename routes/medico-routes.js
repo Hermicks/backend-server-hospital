@@ -16,6 +16,8 @@ Listado de rutas y servicios
 ============================ */
 // Obtención de todos los médicos
 medicoRoutes.get('/medico', MedicoController.getDoctors);
+// Obtención de un médico por ID
+medicoRoutes.get('/medico/:id', MedicoController.getDoctorById);
 // Creación de un médico
 medicoRoutes.post('/medico', mdAuth.tokenVerification, MedicoController.postDoctor);
 // Actualización de un médico

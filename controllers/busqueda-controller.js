@@ -63,7 +63,7 @@ var busquedaController = {
 function searchHospitals(regExp) {
     return new Promise((resolve, reject) => {
         Hospital.find({ nombre: regExp })
-            .populate('usuario', 'nombre email role')
+            .populate('usuario', 'nombre email role img')
             .exec((err, hospitals) => {
                 if (err) {
                     reject('Error al buscar hospitales');
@@ -77,7 +77,7 @@ function searchHospitals(regExp) {
 function searchDoctors(regExp) {
     return new Promise((resolve, reject) => {
         Medico.find({ nombre: regExp })
-            .populate('usuario', 'nombre email')
+            .populate('usuario', 'nombre email img')
             .populate({ path: 'hospital' })
             .exec((err, doctors) => {
                 if (err) {
@@ -91,7 +91,7 @@ function searchDoctors(regExp) {
 
 function searchUsers(regExp) {
     return new Promise((resolve, reject) => {
-        Usuario.find({}, 'nombre email role')
+        Usuario.find({}, 'nombre email role img')
             .or([
                 { 'nombre': regExp },
                 { 'email': regExp }

@@ -16,6 +16,8 @@ Listado de rutas y servicios
 ============================ */
 // Obtención de todos los hospitales
 hospitalRoutes.get('/hospital', HospitalController.getHospitals);
+// Obtener un hospital por ID
+hospitalRoutes.get('/hospital/:id', HospitalController.getHospitalById);
 // Creación de un hospital
 hospitalRoutes.post('/hospital', mdAuth.tokenVerification, HospitalController.postHospital);
 // Actualizar un hospital
