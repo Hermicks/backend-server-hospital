@@ -56,7 +56,8 @@ var loginController = {
                         message: 'Login realizado correctamente',
                         id: userDB._id,
                         token: token,
-                        userDB: userDB
+                        userDB: userDB,
+                        menu: getMenu(userDB.role)
                     });
                 } else {
                     return res.status(400).send({
@@ -106,9 +107,10 @@ var loginController = {
                     return res.status(200).send({
                         ok: true,
                         message: 'Login por Google de usuario ya existente',
-						id: userDB._id,
+                        id: userDB._id,
                         googleUser: userDB,
-                        token: token
+                        token: token,
+                        menu: getMenu(userDB.role)
                     });
                 }
             } else {
@@ -135,7 +137,8 @@ var loginController = {
                         message: 'Login por Google de nuevo usuario',
                         id: googleUserStored._id,
                         googleUser: googleUserStored,
-                        token: token
+                        token: token,
+                        menu: getMenu(googleUserStored.role)
                     });
                 });
             }
@@ -145,5 +148,33 @@ var loginController = {
 
     }
 };
+
+function getMenu(ROLE) {
+    var menu = [
+        {
+            title: 'Principal',
+            icon: 'mdi mdi-gauge',
+            submenu: [
+                { title: 'Dashboard', url: '/dashboard' },
+                { title: 'ProgressBar', url: '/progress' },
+                { title: 'Gráficas', url: '/graficas1' },
+                { title: 'Promesas', url: '/promesas' },
+                { title: 'RXJS', url: '/rxjs' }
+            ]
+        },
+        {
+            title: 'Mantenimiento',
+            icon: 'mdi mdi-folder-lock-open',
+            submenu: [
+                { title: 'Médicos', url: '/medicos' },
+                { title: 'Hospitales', url: '/hospitales' }
+            ]
+        }
+    ];
+    if (ROLE === 'ADMIN_ROLE') {
+        menu[1].submenu.unshift({ title: 'Usuarios', url: '/usuarios' });
+    }
+    return menu;
+}
 
 module.exports = loginController;

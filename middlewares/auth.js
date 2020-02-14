@@ -22,3 +22,38 @@ exports.tokenVerification = function (req, res, next) {
         next();
     });
 };
+
+// Verifica si es ADMIN_ROLE
+exports.adminVerification = function (req, res, next) {
+    // Recogemos el usuario que hemos creado previamente con la verificación del token
+    var user = req.user;
+    if (user.role === 'ADMIN_ROLE') {
+        next();
+    } else {
+        return res.status(401).send({
+            ok: false,
+            message: 'Rol incorrecto',
+            errors: {
+                message: 'No es un administrador. No puede realizar acción'
+            }
+        });
+    }
+};
+
+// Verifica si el usuario es ADMIN_ROLE o de si es el mismo usuario contra el que realiza la acción
+exports.adminOrSameUserVerification = function (req, res, next) {
+    var user = req.user;
+    var id = req.params.id;
+    if (user.role === 'ADMIN_ROLE' || user._id === id) {
+        next();
+    } else {
+        return res.status(401).send({
+            ok: false,
+            message: 'Rol incorrecto - No es el mismo usuario',
+            errors: {
+                message: 'No es un administrador. No puede realizar acción'
+            }
+        });
+    }
+
+};

@@ -19,9 +19,9 @@ userRoutes.get('/usuario', UserController.getUsers);
 // Creación de un nuevo usuario
 userRoutes.post('/usuario', UserController.postUser);
 // Actuzalizar un usuario
-userRoutes.put('/usuario/:id', mdAuth.tokenVerification, UserController.putUser);
+userRoutes.put('/usuario/:id', [mdAuth.tokenVerification, mdAuth.adminOrSameUserVerification], UserController.putUser);
 // Borrar un usuario
-userRoutes.delete('/usuario/:id', mdAuth.tokenVerification, UserController.deleteUser);
+userRoutes.delete('/usuario/:id', [mdAuth.tokenVerification, mdAuth.adminOrSameUserVerification], UserController.deleteUser);
 
 // Exportamos el módulo de rutas de User
 module.exports = userRoutes;
