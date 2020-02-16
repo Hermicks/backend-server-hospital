@@ -146,6 +146,15 @@ var loginController = {
 
 
 
+    },
+    // Renovación de token
+    renewToken: function (req, res) {
+        // Generamos un nuevo token
+        var token = jwt.sign({ user: req.user }, SEED, { expiresIn: 14400 });
+        return res.status(200).send({
+            ok: true,
+            token: token
+        });
     }
 };
 
